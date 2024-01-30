@@ -1,0 +1,62 @@
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.check-dates {
+  > div {
+    width: 5.5rem;
+  }
+}
+
+.check-dates,
+.calendar-buttons {
+  color: #474747;
+  display: flex;
+  gap: 1rem;
+}
+
+.calendar-buttons {
+  font-size: 0.85rem;
+}
+
+.clean-button,
+.book-button {
+  align-self: center;
+  border: 2px solid #ebe9e9;
+  background-color: transparent;
+  color: #636363;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  padding: 0.5rem;
+  &:hover {
+    transition: background-color 0.4s, color 0.4s;
+    cursor: pointer;
+    color: #474747;
+    background-color: #e7e7e7;
+    &[data-disabled="true"] {
+      color: #a0a0a0;
+      background-color: #f0f0f0;
+      cursor: not-allowed;
+      border: 2px solid #f0f0f0;
+    }
+  }
+  &[data-disabled="true"] {
+    color: #a0a0a0;
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    border: 2px solid #f0f0f0;
+  }
+}
+
+.book-button {
+  background-color: #f45692;
+  border: none;
+  color: #fff;
+  &:hover {
+    color: #fff;
+    background-color: #ca3d59;
+  }
+}

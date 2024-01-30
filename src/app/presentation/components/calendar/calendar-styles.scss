@@ -1,0 +1,68 @@
+@import "../../styles/global-styles.scss";
+
+* {
+  font-family: "Montserrat";
+}
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background: green;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transform-origin: top;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  align-items: center;
+  display: flex;
+  height: 2rem;
+}
+
+.toast-container.show .toast {
+  opacity: 1;
+  transform: translateY(0);
+  animation: slideDown 0.5s ease-in-out;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.calendar-title {
+  color: #474747;
+  // #F54B6D
+  // #F45692
+  // #F4558E
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.calendar-content {
+  width: 22rem;
+  height: 23rem;
+  padding: 1rem 0;
+  background-color: #fff;
+  border-radius: .45rem;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+}
