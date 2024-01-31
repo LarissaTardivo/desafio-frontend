@@ -1,17 +1,17 @@
 import React from "react"
 import { DateAction } from "../calendar"
 import "./header-styles.scss"
-import { format } from 'date-fns'
+import { format } from '../../../functions'
 
 type Props = {
   checkIn: string | null
   checkOut: string | null
-  handleWithDates: (action: DateAction) => void
+  handleWithSelectedDates: (action: DateAction) => void
 }
 export const Header: React.FC<Props> = ({
   checkIn,
   checkOut,
-  handleWithDates,
+  handleWithSelectedDates,
 }) => {
   return (
     <div className="calendar-header">
@@ -29,14 +29,14 @@ export const Header: React.FC<Props> = ({
         <div
           className="clean-button"
           data-disabled={!checkIn || !checkOut}
-          onClick={() => handleWithDates("clean")}
+          onClick={() => handleWithSelectedDates("clean")}
         >
           Limpar
         </div>
         <div
           className="book-button"
           data-disabled={!checkIn || !checkOut}
-          onClick={() => handleWithDates("book")}
+          onClick={() => handleWithSelectedDates("book")}
         >
           Reservar
         </div>

@@ -1,8 +1,7 @@
 import React from "react"
 import { DatePosition } from "../calendar"
-import { format, isSameMonth } from "date-fns"
-import { ptBR } from "date-fns/locale"
 import "./navigation-styles.scss"
+import { extractMonthAndYear, isSameMonth } from "../../../functions"
 
 type Props = {
   selectedMonth: Date
@@ -12,6 +11,7 @@ export const Navigation: React.FC<Props> = ({
   selectedMonth,
   handleWithCalendar,
 }) => {
+
   return (
     <div className="navigation">
       <div
@@ -22,7 +22,7 @@ export const Navigation: React.FC<Props> = ({
         {isSameMonth(selectedMonth, new Date()) ? "" : "<"}
       </div>
       <div className="calendar-date">
-        {format(selectedMonth, "MMMM yyyy", { locale: ptBR }).toUpperCase()}
+        {extractMonthAndYear(selectedMonth).toUpperCase()}
       </div>
       <div className="arrow" onClick={() => handleWithCalendar("next")}>
         {">"}

@@ -2,37 +2,39 @@ import React, { useEffect, useState } from "react"
 import { MonthProps } from "../../../../domain/entities"
 import { Day } from "../day/day"
 import {
-  eachDayOfInterval,
+  startOfMonth,
   endOfMonth,
-  format,
-  getDay,
-  getDaysInMonth,
+  eachDayOfInterval,
   isBefore,
   isToday,
-  startOfMonth,
-} from "date-fns"
+  getDayOfWeek,
+  getDaysInMonth,
+  format,
+} from "../../../functions"
 import "./month-styles.scss"
 
 export const Month: React.FC<MonthProps> = ({
   selectedMonth,
   onDateChange,
-  customDates,
+  preventedDates,
   isEmptyDates,
+  intervalDates,
 }) => {
   const [selectedDates, setSelectedDates] = useState<string[]>([])
+
+  useEffect(() => {
+    if (isEmptyDates) setSelectedDates([])
+  }, [isEmptyDates])
 
   const today = new Date()
   const firstDayOfMonth = startOfMonth(selectedMonth)
   const lastDayOfMonth = endOfMonth(today)
-  const previousDays = eachDayOfInterval({
-    start: firstDayOfMonth,
-    end: lastDayOfMonth,
-  })
-  const formattedDays = previousDays
+  const previousDays = eachDayOfInterval(firstDayOfMonth, lastDayOfMonth)
+  const formattedPreviousDays = previousDays
     .filter((day) => isBefore(day, today) && !isToday(day))
     .map((day) => format(day, "MM-dd-yyyy"))
 
-  const startDayOfWeek = getDay(firstDayOfMonth)
+  const startDayOfWeek = getDayOfWeek(firstDayOfMonth)
   const monthDays = getDaysInMonth(firstDayOfMonth)
 
   const daysArray: (number | null)[] = Array.from(
@@ -41,11 +43,7 @@ export const Month: React.FC<MonthProps> = ({
   )
   daysArray.push(...Array.from({ length: monthDays }, (_, index) => index + 1))
 
-  const preventedDates = customDates.map((item) =>
-    format(item.date, "MM-dd-yyyy")
-  )
-
-  const completeDates = daysArray.map((day) => {
+  const formattedDays = daysArray.map((day) => {
     if (day === null) {
       return null
     }
@@ -71,21 +69,18 @@ export const Month: React.FC<MonthProps> = ({
     }
   }
 
-  useEffect(() => {
-    if (isEmptyDates) setSelectedDates([])
-  }, [isEmptyDates])
-
   return (
     <div className="month-container">
-      {completeDates.map((day, index) => (
+      {formattedDays.map((day, index) => (
         <Day
           key={index}
           day={day}
           onDayClick={handleDayClick}
           selectedDates={selectedDates}
-          allPreviousDays={formattedDays}
+          allPreviousDays={formattedPreviousDays}
           preventedDates={preventedDates}
           isEmptyDates={isEmptyDates}
+          intervalDates={intervalDates}
         />
       ))}
     </div>
