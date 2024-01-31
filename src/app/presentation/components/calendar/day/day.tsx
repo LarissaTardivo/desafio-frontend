@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import { DayProps } from "../../../../domain/entities"
 import "./day-styles.scss"
-import { format } from '../../../functions'
+import { format } from "../../../functions"
 
 export const Day: React.FC<DayProps> = ({
   day,
@@ -11,9 +11,15 @@ export const Day: React.FC<DayProps> = ({
   preventedDates,
   isEmptyDates,
   intervalDates,
+  dateStyles,
 }) => {
+  const [isHovered, setIsHovered] = useState(false)
+
   const dayNumber = day?.split("-")[1]
-  
+
+  const dateSelected =
+    selectedDates[0] === day || intervalDates.includes(day || "")
+
   const formattedBlockedDates = preventedDates.map((item) =>
     format(item.date, "MM-dd-yyyy")
   )
@@ -29,14 +35,21 @@ export const Day: React.FC<DayProps> = ({
 
   return (
     <div
+      onMouseEnter={() => !isDayBlocked && setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={() => handleOnClick(day || "")}
       className={day ? "day" : ""}
-      data-selected={
-        isEmptyDates
-          ? false
-          : selectedDates[0] === day || intervalDates.includes(day || "")
-      }
+      data-selected={isEmptyDates ? false : dateSelected}
       data-disabled={isDayBlocked}
+      style={{
+        backgroundColor: isDayBlocked
+          ? dateStyles.disabledColor
+          : isHovered
+          ? dateStyles.hoverColor
+          : dateSelected
+          ? dateStyles.selectedColor
+          : dateStyles.backgroundColor,
+      }}
     >
       {dayNumber}
     </div>

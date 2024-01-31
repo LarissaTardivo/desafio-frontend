@@ -19,6 +19,7 @@ export const Month: React.FC<MonthProps> = ({
   preventedDates,
   isEmptyDates,
   intervalDates,
+  dateStyles,
 }) => {
   const [selectedDates, setSelectedDates] = useState<string[]>([])
 
@@ -81,6 +82,7 @@ export const Month: React.FC<MonthProps> = ({
           preventedDates={preventedDates}
           isEmptyDates={isEmptyDates}
           intervalDates={intervalDates}
+          dateStyles={dateStyles}
         />
       ))}
     </div>

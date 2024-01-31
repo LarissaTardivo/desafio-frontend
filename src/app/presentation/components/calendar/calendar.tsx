@@ -154,6 +154,12 @@ export const Calendar = () => {
             preventedDates={preventedDates}
             isEmptyDates={isEmptyDates}
             intervalDates={intervalDates}
+            dateStyles={{
+              backgroundColor: "#FFF",
+              hoverColor: "#FAC5D4",
+              selectedColor: "#F45692",
+              disabledColor: "#f8f8f8",
+            }}
           />
         </div>
       </div>

@@ -6,6 +6,12 @@ export interface DayProps {
   isEmptyDates: boolean
   intervalDates: string[]
   preventedDates: { type: string; date: string }[]
+  dateStyles: {
+    backgroundColor: string
+    hoverColor: string
+    selectedColor: string
+    disabledColor: string
+  }
 }
 
 export interface MonthProps {
@@ -14,4 +20,10 @@ export interface MonthProps {
   isEmptyDates: boolean
   intervalDates: string[]
   preventedDates: { type: string; date: string }[]
+  dateStyles: {
+    backgroundColor: string
+    hoverColor: string
+    selectedColor: string
+    disabledColor: string
+  }
 }
