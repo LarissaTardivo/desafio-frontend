@@ -104,7 +104,7 @@ export const Calendar = () => {
   }
   
   const handleWithSelectedDates = (action: DateAction) => {
-    if (action === "book") {
+    if (!isEmptyDates && action === "book") {
       setCheckIn(null)
       setCheckOut(null)
       showToastMessage()

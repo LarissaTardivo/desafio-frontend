@@ -2,6 +2,7 @@ import React from "react"
 import { DateAction } from "../calendar"
 import "./header-styles.scss"
 import { format } from '../../../functions'
+import { Button } from '../../button/button'
 
 type Props = {
   checkIn: string | null
@@ -26,20 +27,23 @@ export const Header: React.FC<Props> = ({
         </div>
       </div>
       <div className="calendar-buttons">
-        <div
+        <Button
+          isDisabled={!checkIn || !checkOut}
+          text="Limpar"
           className="clean-button"
-          data-disabled={!checkIn || !checkOut}
           onClick={() => handleWithSelectedDates("clean")}
-        >
-          Limpar
-        </div>
-        <div
+          backgroundColor="transparent"
+          hoverColor="#e7e7e7"
+          stroke="#a0a0a0"
+        />
+        <Button
+          isDisabled={!checkIn || !checkOut}
+          text="Reservar"
           className="book-button"
-          data-disabled={!checkIn || !checkOut}
           onClick={() => handleWithSelectedDates("book")}
-        >
-          Reservar
-        </div>
+          backgroundColor="#f45692"
+          hoverColor="#ca3d59"
+        />
       </div>
     </div>
   )

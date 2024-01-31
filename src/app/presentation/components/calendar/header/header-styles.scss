@@ -34,13 +34,11 @@
   &:hover {
     transition: background-color 0.4s, color 0.4s;
     cursor: pointer;
-    color: #474747;
-    background-color: #e7e7e7;
     &[data-disabled="true"] {
       color: #a0a0a0;
       background-color: #f0f0f0;
       cursor: not-allowed;
-      border: 2px solid #f0f0f0;
+      border: 2px solid transparent;
     }
   }
   &[data-disabled="true"] {
@@ -52,11 +50,9 @@
 }
 
 .book-button {
-  background-color: #f45692;
   border: none;
   color: #fff;
   &:hover {
     color: #fff;
-    background-color: #ca3d59;
   }
 }
