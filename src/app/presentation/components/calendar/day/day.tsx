@@ -35,7 +35,7 @@ export const Day: React.FC<DayProps> = ({
 
   return (
     <div
-      onMouseEnter={() => !isDayBlocked && setIsHovered(true)}
+      onMouseEnter={() => !isDayBlocked && day && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => handleOnClick(day || "")}
       className={day ? "day" : ""}
