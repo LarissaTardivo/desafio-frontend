@@ -15,43 +15,45 @@ import {
 export type DatePosition = "previous" | "next"
 export type DateAction = "clean" | "book"
 
-const customDates = [
-  {
-    type: "block",
-    date: "2024-03-03",
-  },
-  {
-    type: "booked",
-    date: "2024-04-04",
-  },
-  {
-    type: "booked",
-    date: "2024-04-05",
-  },
-  {
-    type: "block",
-    date: "2024-03-16",
-  },
-]
+interface Props {
+  customDates?: {
+    type: string
+    date: string
+  }[]
+  onDatesChange: (dates: string[]) => void
+  dateStyles: {
+    backgroundColor: string
+    hoverColor: string
+    selectedColor: string
+    disabledColor: string
+    poupupColor: string
+  }
+}
 
-export const Calendar = () => {
+export const Calendar: React.FC<Props> = ({
+  onDatesChange,
+  dateStyles,
+  customDates,
+}) => {
   const [showToast, setShowToast] = useState(false)
   const [selectedMonth, setCurrentMonth] = React.useState(new Date())
   const [intervalDates, setIntervalDates] = React.useState<string[]>([])
-  const [preventedDates, setPreventedDates] =
-    React.useState<{ type: string; date: string }[]>(customDates)
+  const [preventedDates, setPreventedDates] = React.useState(customDates || [])
   const [checkIn, setCheckIn] = React.useState<string | null>(null)
   const [checkOut, setCheckOut] = React.useState<string | null>(null)
   const isEmptyDates = checkIn === null && checkOut === null
 
-  const handleWithCalendar = (datePosition: DatePosition) => {
+  const handleWithCalendar = (
+    datePosition: DatePosition,
+    diffMonths: number
+  ) => {
     const currentDate = new Date()
     let newMonth
 
     if (datePosition === "next") {
-      newMonth = addMonths(selectedMonth, 1)
+      newMonth = addMonths(selectedMonth, diffMonths)
     } else {
-      newMonth = subMonths(selectedMonth, 1)
+      newMonth = subMonths(selectedMonth, diffMonths)
     }
     if (isAfter(newMonth, currentDate) || isSameMonth(newMonth, currentDate)) {
       setCurrentMonth(newMonth)
@@ -71,9 +73,10 @@ export const Calendar = () => {
       newCheckOut = selectedDates[selectedDates.length - 1]
       setCheckOut(newCheckOut)
     }
+    onDatesChange(selectedDates)
   }
 
-  const formattedPreventedDates = customDates.map((item) =>
+  const formattedPreventedDates = customDates?.map((item) =>
     format(item.date, "MM-dd-yyyy")
   )
 
@@ -93,7 +96,7 @@ export const Calendar = () => {
     while (currentDate <= newCheckOut) {
       const formattedDate = format(currentDate, "MM-dd-yyyy")
 
-      if (!formattedPreventedDates.includes(formattedDate)) {
+      if (!formattedPreventedDates?.includes(formattedDate)) {
         intervalDates.push(formattedDate)
       }
 
@@ -102,7 +105,7 @@ export const Calendar = () => {
 
     setIntervalDates(intervalDates)
   }
-  
+
   const handleWithSelectedDates = (action: DateAction) => {
     if (!isEmptyDates && action === "book") {
       setCheckIn(null)
@@ -110,7 +113,7 @@ export const Calendar = () => {
       showToastMessage()
       setPreventedDates([
         ...preventedDates,
-        ...intervalDates.map((item) => ({ type: "booked", date: item })),
+        ...intervalDates?.map((item) => ({ type: "booked", date: item })),
       ])
     } else {
       setCheckIn(null)
@@ -119,12 +122,12 @@ export const Calendar = () => {
     }
   }
 
-   const showToastMessage = () => {
-     setShowToast(true)
-     setTimeout(() => {
-       setShowToast(false)
-     }, 3000)
-   }
+  const showToastMessage = () => {
+    setShowToast(true)
+    setTimeout(() => {
+      setShowToast(false)
+    }, 3000)
+  }
 
   return (
     <>
@@ -134,9 +137,6 @@ export const Calendar = () => {
         )}
       </div>
       <div className="calendar-container">
-        <div className="calendar-title">
-          Por quanto tempo deseja ficar em uma Housi?
-        </div>
         <Header
           checkIn={checkIn}
           checkOut={checkOut}
@@ -144,8 +144,9 @@ export const Calendar = () => {
         />
         <div className="calendar-content">
           <Navigation
-            selectedMonth={selectedMonth}
+            currentDate={selectedMonth}
             handleWithCalendar={handleWithCalendar}
+            dateStyles={dateStyles}
           />
           <Weekdays />
           <Month
@@ -154,12 +155,7 @@ export const Calendar = () => {
             preventedDates={preventedDates}
             isEmptyDates={isEmptyDates}
             intervalDates={intervalDates}
-            dateStyles={{
-              backgroundColor: "#FFF",
-              hoverColor: "#FAC5D4",
-              selectedColor: "#F45692",
-              disabledColor: "#f8f8f8",
-            }}
+            dateStyles={dateStyles}
           />
         </div>
       </div>
