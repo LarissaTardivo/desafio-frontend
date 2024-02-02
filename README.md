@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# Calendar Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Um componente simples e reutilizável para lidar com reserva de datas.
 
-## Available Scripts
+![example](public/calendar-example.gif)
 
-In the project directory, you can run:
+## Instalação
 
-### `npm start`
+Use o gerenciador de pacotes npm para instalar o Calendar.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Iniciando
 
-### `npm test`
+Execute o seguinte comando para iniciar o projeto:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm start 
 
-### `npm run build`
+## Imports e Uso
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Importe o componente Calendar no seu arquivo e integre-o conforme necessário.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    import Calendar from 'caminho/do/seu/Calendar';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    // ...
+    
+    <Calendar
+      onDateSelect={(date) => handleDateSelect(date)}
+      dateStyles={{
+	    backgroundColor:  "#FFF",
+		hoverColor:  "#FAC5D4",
+	    selectedColor:  "#F45692",
+	    disabledColor:  "#f8f8f8",
+		poupupColor:  "#fcf3f5",
+	   }}
+      customDates={customDates}
+    />
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Datas Customizadas
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Personalize as datas impedidas de acordo com suas necessidades, utilizando as opções disponíveis no componente.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    const  customDates  = [
+    { type:  "block", date:  "2024-03-03" },
+    { type:  "booked", date:  "2024-04-04" },
+    { type:  "booked", date:  "2024-04-05" },
+    { type:  "block", date:  "2024-03-16" } ]
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
