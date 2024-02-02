@@ -29,4 +29,72 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: #636363;
+  &:hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+.years-popup {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: auto;
+  position: absolute;
+  gap: 1rem;
+  left: 112px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  .year {
+    color: #474747;
+    &:hover {
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+}
+
+.months-popup {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  z-index: auto;
+  position: absolute;
+  gap: 0.5rem;
+  left: 70px;
+  width: min-content;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  .arrow {
+    color: #636363;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    padding: 0.1rem;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    &:hover {
+      transition: background-color 0.3s, color 0.3s;
+      background-color: #e7e7e7;
+      cursor: pointer;
+      &[data-disabled="true"] {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+  .months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    .month {
+      color: #474747;
+      &:hover {
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
 }

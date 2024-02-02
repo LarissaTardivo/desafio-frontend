@@ -109,3 +109,21 @@ export const extractMonthAndYear = (date: Date) => {
   } as Intl.DateTimeFormatOptions
   return new Intl.DateTimeFormat("pt-BR", options).format(date)
 }
+
+export const getAvailableYears = () => {
+  const currentYear = new Date().getFullYear()
+  const startYear = currentYear
+  const years = []
+
+  for (let year = startYear; year <= currentYear + 23; year++) {
+    years.push(year)
+  }
+
+  return years
+}
+
+export const differenceInMonths = (start: Date, end: Date): number => {
+  let diff = (end.getFullYear() - start.getFullYear()) * 12
+  diff += end.getMonth() - start.getMonth()
+  return Math.abs(diff)
+}
